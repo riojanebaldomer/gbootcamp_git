@@ -5,3 +5,11 @@ Author:       Rio Jane "Ree" Baldomer
 Template:     twentyfourteen
 Version:      1.0.0
 */
+
+.site-content a:not(.button) {
+    color: deepskyblue;
+}
+
+.site-header {
+    background-color: salmon;
+}
