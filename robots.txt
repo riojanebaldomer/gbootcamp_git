@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://dev-cookturee.pantheonsite.io/sitemap_index.xml
