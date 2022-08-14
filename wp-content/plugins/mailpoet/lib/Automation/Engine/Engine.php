@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\API\API;
-use MailPoet\Automation\Engine\Control\StepRunner;
+use MailPoet\Automation\Engine\Control\StepHandler;
 use MailPoet\Automation\Engine\Control\TriggerHandler;
 use MailPoet\Automation\Engine\Endpoints\System\DatabaseDeleteEndpoint;
 use MailPoet\Automation\Engine\Endpoints\System\DatabasePostEndpoint;
@@ -28,8 +28,8 @@ class Engine {
   /** @var Registry */
   private $registry;
 
-  /** @var StepRunner */
-  private $stepRunner;
+  /** @var StepHandler */
+  private $stepHandler;
 
   /** @var TriggerHandler */
   private $triggerHandler;
@@ -44,7 +44,7 @@ class Engine {
     API $api,
     CoreIntegration $coreIntegration,
     Registry $registry,
-    StepRunner $stepRunner,
+    StepHandler $stepHandler,
     TriggerHandler $triggerHandler,
     WordPress $wordPress,
     WorkflowStorage $workflowStorage
@@ -52,20 +52,17 @@ class Engine {
     $this->api = $api;
     $this->coreIntegration = $coreIntegration;
     $this->registry = $registry;
-    $this->stepRunner = $stepRunner;
+    $this->stepHandler = $stepHandler;
     $this->triggerHandler = $triggerHandler;
     $this->wordPress = $wordPress;
     $this->workflowStorage = $workflowStorage;
   }
 
   public function initialize(): void {
-    // register Action Scheduler (when behind feature flag, do it only on initialization)
-    require_once __DIR__ . '/../../../vendor/woocommerce/action-scheduler/action-scheduler.php';
-
     $this->registerApiRoutes();
 
     $this->api->initialize();
-    $this->stepRunner->initialize();
+    $this->stepHandler->initialize();
     $this->triggerHandler->initialize();
 
     $this->coreIntegration->register($this->registry);

@@ -241,8 +241,12 @@ class Populator {
     }
 
     // set default sender info based on current user
+    $currentUserName = $currentUser->display_name ?: ''; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    // parse current user name if an email is used
+    $senderName = explode('@', $currentUserName);
+    $senderName = reset($senderName);
     $defaultSender = [
-      'name' => $currentUser->display_name ?: '', // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      'name' => $senderName,
       'address' => $currentUser->user_email ?: '', // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     ];
     $savedSender = $this->settings->fetch('sender', []);
@@ -470,7 +474,14 @@ class Populator {
         'name' => 'afterTimeType',
         'newsletter_type' => NewsletterEntity::TYPE_RE_ENGAGEMENT,
       ],
-
+      [
+        'name' => 'workflowId',
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
+      ],
+      [
+        'name' => 'workflowStepId',
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
+      ],
     ];
 
     return [
