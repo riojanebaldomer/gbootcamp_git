@@ -11,6 +11,7 @@ use MailPoet\Router\Endpoints\CronDaemon;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
+use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Beacon {
@@ -23,14 +24,19 @@ class Beacon {
   /** @var SubscribersFeature */
   private $subscribersFeature;
 
+  /** @var WooCommerceHelper */
+  private $wooCommerceHelper;
+
   public function __construct(
     SettingsController $settings,
     WPFunctions $wp,
-    SubscribersFeature $subscribersFeature
+    SubscribersFeature $subscribersFeature,
+    WooCommerceHelper $wooCommerceHelper
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
     $this->subscribersFeature = $subscribersFeature;
+    $this->wooCommerceHelper = $wooCommerceHelper;
   }
 
   public function getData($maskApiKey = false) {
@@ -91,6 +97,7 @@ class Beacon {
       'Bounce Email Address' => $this->settings->get('bounce.address'),
       'Total number of subscribers' => $this->subscribersFeature->getSubscribersCount(),
       'Plugin installed at' => $this->settings->get('installed_at'),
+      'Installed via WooCommerce onboarding wizard' => $this->wooCommerceHelper->wasMailPoetInstalledViaWooCommerceOnboardingWizard(),
     ];
   }
 

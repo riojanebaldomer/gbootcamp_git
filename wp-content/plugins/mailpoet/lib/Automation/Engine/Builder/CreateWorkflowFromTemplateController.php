@@ -5,8 +5,8 @@ namespace MailPoet\Automation\Engine\Builder;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Workflow;
 use MailPoet\Automation\Engine\Storage\WorkflowStorage;
-use MailPoet\Automation\Engine\Workflows\Workflow;
 use MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder;
 use MailPoet\UnexpectedValueException;
 

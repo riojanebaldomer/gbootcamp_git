@@ -5,7 +5,7 @@ namespace MailPoet\Automation\Integrations\MailPoet\Subjects;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Automation\Engine\Workflows\Field;
+use MailPoet\Automation\Engine\Data\Field;
 use MailPoet\Automation\Engine\Workflows\Subject;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\InvalidStateException;
