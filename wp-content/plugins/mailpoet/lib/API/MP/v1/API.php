@@ -12,7 +12,6 @@ use MailPoet\Models\SubscriberSegment;
 use MailPoet\Subscribers\RequiredCustomFieldValidator;
 use MailPoet\Subscribers\Source;
 use MailPoet\Util\Helpers;
-use MailPoet\WP\Functions as WPFunctions;
 
 /**
  * API used by other plugins
@@ -94,7 +93,7 @@ class API {
     // throw exception when none of the segments exist
     $foundSegments = Segment::whereIn('id', $listIds)->findMany();
     if (!$foundSegments) {
-      $exception = WPFunctions::get()->_n('This list does not exist.', 'These lists do not exist.', count($listIds), 'mailpoet');
+      $exception = _n('This list does not exist.', 'These lists do not exist.', count($listIds), 'mailpoet');
       throw new APIException($exception, APIException::LIST_NOT_EXISTS);
     }
 
@@ -102,10 +101,12 @@ class API {
     $foundSegmentsIds = [];
     foreach ($foundSegments as $segment) {
       if ($segment->type === Segment::TYPE_WP_USERS) {
-        throw new APIException(__(sprintf("Can't unsubscribe from a WordPress Users list with ID %d.", $segment->id), 'mailpoet'), APIException::SUBSCRIBING_TO_WP_LIST_NOT_ALLOWED);
+        // translators: %d is the ID of the segment
+        throw new APIException(sprintf(__("Can't unsubscribe from a WordPress Users list with ID %d.", 'mailpoet'), $segment->id), APIException::SUBSCRIBING_TO_WP_LIST_NOT_ALLOWED);
       }
       if ($segment->type === Segment::TYPE_WC_USERS) {
-        throw new APIException(__(sprintf("Can't unsubscribe from a WooCommerce Customers list with ID %d.", $segment->id), 'mailpoet'), APIException::SUBSCRIBING_TO_WC_LIST_NOT_ALLOWED);
+        // translators: %d is the ID of the segment
+        throw new APIException(sprintf(__("Can't unsubscribe from a WooCommerce Customers list with ID %d.", 'mailpoet'), $segment->id), APIException::SUBSCRIBING_TO_WC_LIST_NOT_ALLOWED);
       }
       $foundSegmentsIds[] = $segment->id;
     }
@@ -114,7 +115,8 @@ class API {
     if (count($foundSegmentsIds) !== count($listIds)) {
       $missingIds = array_values(array_diff($listIds, $foundSegmentsIds));
       $exception = sprintf(
-        WPFunctions::get()->_n('List with ID %s does not exist.', 'Lists with IDs %s do not exist.', count($missingIds), 'mailpoet'),
+        // translators: %s is a comma-separated list of list IDs.
+        _n('List with ID %s does not exist.', 'Lists with IDs %s do not exist.', count($missingIds), 'mailpoet'),
         implode(', ', $missingIds)
       );
       throw new APIException($exception, APIException::LIST_NOT_EXISTS);
@@ -171,7 +173,8 @@ class API {
     $newSubscriber->save();
     if ($newSubscriber->getErrors() !== false) {
       throw new APIException(
-        __(sprintf('Failed to add subscriber: %s', strtolower(implode(', ', $newSubscriber->getErrors()))), 'mailpoet'),
+        // translators: %s is a comma-seperated list of errors.
+        sprintf(__('Failed to add subscriber: %s', 'mailpoet'), strtolower(implode(', ', $newSubscriber->getErrors()))),
         APIException::FAILED_TO_SAVE_SUBSCRIBER
       );
     }
@@ -211,8 +214,6 @@ class API {
       $this->changelog->shouldShowWelcomeWizard()
       || $this->changelog->shouldShowWooCommerceListImportPage()
       || $this->changelog->shouldShowRevenueTrackingPermissionPage()
-      || $this->changelog->isMp2MigrationInProgress()
-      || $this->changelog->shouldShowMp2Migration()
     );
   }
 }

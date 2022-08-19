@@ -23,6 +23,9 @@ class WorkflowRun {
   /** @var int */
   private $workflowId;
 
+  /** @var int */
+  private $versionId;
+
   /** @var string */
   private $triggerKey;
 
@@ -46,11 +49,13 @@ class WorkflowRun {
    */
   public function __construct(
     int $workflowId,
+    int $versionId,
     string $triggerKey,
     array $subjects,
     int $id = null
   ) {
     $this->workflowId = $workflowId;
+    $this->versionId = $versionId;
     $this->triggerKey = $triggerKey;
     $this->subjects = $subjects;
 
@@ -72,6 +77,10 @@ class WorkflowRun {
   }
 
   public function getWorkflowId(): int {
+    return $this->workflowId;
+  }
+
+  public function getVersionId(): int {
     return $this->workflowId;
   }
 
@@ -133,6 +142,7 @@ class WorkflowRun {
   public function toArray(): array {
     return [
       'workflow_id' => $this->workflowId,
+      'version_id' => $this->versionId,
       'trigger_key' => $this->triggerKey,
       'status' => $this->status,
       'created_at' => $this->createdAt->format(DateTimeImmutable::W3C),
@@ -146,7 +156,7 @@ class WorkflowRun {
   }
 
   public static function fromArray(array $data): self {
-    $workflowRun = new WorkflowRun((int)$data['workflow_id'], $data['trigger_key'], $data['subjects']);
+    $workflowRun = new WorkflowRun((int)$data['workflow_id'], (int)$data['version_id'], $data['trigger_key'], $data['subjects']);
     $workflowRun->id = (int)$data['id'];
     $workflowRun->status = $data['status'];
     $workflowRun->createdAt = $data['created_at'];

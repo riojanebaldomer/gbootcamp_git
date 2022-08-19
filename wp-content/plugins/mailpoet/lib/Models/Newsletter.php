@@ -13,7 +13,6 @@ use MailPoet\Settings\SettingsController;
 use MailPoet\Tasks\Sending as SendingTask;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Security;
-use MailPoet\WP\Functions as WPFunctions;
 
 /**
  * @property int $id
@@ -66,7 +65,7 @@ class Newsletter extends Model {
   public function __construct() {
     parent::__construct();
     $this->addValidations('type', [
-      'required' => WPFunctions::get()->__('Please specify a type.', 'mailpoet'),
+      'required' => __('Please specify a type.', 'mailpoet'),
     ]);
   }
 
@@ -162,7 +161,7 @@ class Newsletter extends Model {
       if (!$this->body || empty(json_decode($this->getBodyString()))) {
         $this->setError(
           Helpers::replaceLinkTags(
-            __('This is an empty email without any content and it cannot be sent. Please update [link]the email[/link].'),
+            __('This is an empty email without any content and it cannot be sent. Please update [link]the email[/link].', 'mailpoet'),
             'admin.php?page=mailpoet-newsletter-editor&id=' . $this->id
           )
         );
@@ -341,7 +340,7 @@ class Newsletter extends Model {
       foreach ($links as $link) {
         $deletedSegments[] = [
           'id' => $link['segment_id'],
-          'name' => WPFunctions::get()->__('Deleted list', 'mailpoet'),
+          'name' => __('Deleted list', 'mailpoet'),
         ];
       }
       $this->segments = array_merge($this->segments, $deletedSegments);

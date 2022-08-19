@@ -16,6 +16,9 @@ class Workflow {
   /** @var int */
   private $id;
 
+  /** @var int */
+  private $versionId;
+
   /** @var string */
   private $name;
 
@@ -35,7 +38,8 @@ class Workflow {
   public function __construct(
     string $name,
     array $steps,
-    int $id = null
+    int $id = null,
+    int $versionId = null
   ) {
     $this->name = $name;
     $this->steps = [];
@@ -45,6 +49,9 @@ class Workflow {
 
     if ($id) {
       $this->id = $id;
+    }
+    if ($versionId) {
+      $this->versionId = $versionId;
     }
 
     $now = new DateTimeImmutable();
@@ -56,12 +63,17 @@ class Workflow {
     return $this->id;
   }
 
+  public function getVersionId(): int {
+    return $this->versionId;
+  }
+
   public function getName(): string {
     return $this->name;
   }
 
   public function setName(string $name): void {
     $this->name = $name;
+    $this->setUpdatedAt();
   }
 
   public function getStatus(): string {
@@ -70,6 +82,7 @@ class Workflow {
 
   public function setStatus(string $status): void {
     $this->status = $status;
+    $this->setUpdatedAt();
   }
 
   public function getCreatedAt(): DateTimeImmutable {
@@ -88,6 +101,7 @@ class Workflow {
   /** @param array<string, Step> $steps */
   public function setSteps(array $steps): void {
     $this->steps = $steps;
+    $this->setUpdatedAt();
   }
 
   public function getStep(string $id): ?Step {
@@ -101,6 +115,20 @@ class Workflow {
       }
     }
     return null;
+  }
+
+  public function equals(Workflow $compare): bool {
+    $compareArray = $compare->toArray();
+    $currentArray = $this->toArray();
+    $ignoreValues = [
+      'created_at',
+      'updated_at',
+    ];
+    foreach ($ignoreValues as $ignore) {
+      unset($compareArray[$ignore]);
+      unset($currentArray[$ignore]);
+    }
+    return $compareArray === $currentArray;
   }
 
   public function toArray(): array {
@@ -125,10 +153,15 @@ class Workflow {
     ];
   }
 
+  private function setUpdatedAt(): void {
+    $this->updatedAt = new DateTimeImmutable();
+  }
+
   public static function fromArray(array $data): self {
     // TODO: validation
     $workflow = new self($data['name'], self::parseSteps(Json::decode($data['steps'])));
     $workflow->id = (int)$data['id'];
+    $workflow->versionId = (int)$data['version_id'];
     $workflow->status = $data['status'];
     $workflow->createdAt = new DateTimeImmutable($data['created_at']);
     $workflow->updatedAt = new DateTimeImmutable($data['updated_at']);

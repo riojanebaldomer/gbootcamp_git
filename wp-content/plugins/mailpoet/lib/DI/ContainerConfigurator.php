@@ -43,7 +43,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\AdminPages\Pages\Logs::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\NewsletterEditor::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Newsletters::class)->setPublic(true);
-    $container->autowire(\MailPoet\AdminPages\Pages\MP2Migration::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Upgrade::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Segments::class)->setPublic(true);
     $container->autowire(\MailPoet\AdminPages\Pages\Settings::class)->setPublic(true);
@@ -74,7 +73,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\API\JSON\v1\Forms::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\ImportExport::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\Mailer::class)->setPublic(true);
-    $container->autowire(\MailPoet\API\JSON\v1\MP2Migrator::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\Newsletters::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\NewsletterLinks::class)->setPublic(true);
     $container->autowire(\MailPoet\API\JSON\v1\NewsletterTemplates::class)->setPublic(true);
@@ -157,7 +155,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Config\Localizer::class);
     $container->autowire(\MailPoet\Config\Menu::class)->setPublic(true);
     $container->autowire(\MailPoet\Config\Migrator::class)->setPublic(true);
-    $container->autowire(\MailPoet\Config\MP2Migrator::class);
     $container->autowire(\MailPoet\Config\RendererFactory::class)->setPublic(true);
     $container->autowire(\MailPoet\Config\ServicesChecker::class)->setPublic(true);
     $container->autowire(\MailPoet\Config\Router::class)->setPublic(true);
@@ -380,6 +377,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Services\Bridge::class)->setPublic(true);
     $container->autowire(\MailPoet\Services\AuthorizedEmailsController::class)->setPublic(true);
     $container->autowire(\MailPoet\Services\CongratulatoryMssEmailController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Services\AuthorizedSenderDomainController::class)->setPublic(true);
     // Tasks
     $container->autowire(\MailPoet\Tasks\State::class);
     // Settings
@@ -467,6 +465,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->register(\MailPoet\Util\CdnAssetUrl::class)
       ->setPublic(true)
       ->setFactory([__CLASS__, 'getCdnAssetsUrl']);
+    $container->autowire(\MailPoet\Util\DmarcPolicyChecker::class)->setPublic(true);
     $container->autowire(\MailPoet\Newsletter\Scheduler\Scheduler::class)->setPublic(true);
     // Validator
     $container->autowire(Validator::class)->setPublic(true);

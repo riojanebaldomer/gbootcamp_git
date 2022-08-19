@@ -30,7 +30,7 @@ class SegmentSubscribedTrigger implements Trigger {
   }
 
   public function getName(): string {
-    return __('Subscribed to segment');
+    return __('Subscribed to segment', 'mailpoet');
   }
 
   public function getArgsSchema(): ObjectSchema {
