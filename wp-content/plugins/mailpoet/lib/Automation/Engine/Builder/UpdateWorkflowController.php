@@ -41,17 +41,13 @@ class UpdateWorkflowController {
       throw Exceptions::workflowNotFound($id);
     }
 
-    $changed = false;
-
     if (array_key_exists('name', $data)) {
       $workflow->setName($data['name']);
-      $changed = true;
     }
 
     if (array_key_exists('status', $data)) {
       $this->checkWorkflowStatus($data['status']);
       $workflow->setStatus($data['status']);
-      $changed = true;
     }
 
     if (array_key_exists('steps', $data)) {
@@ -61,13 +57,10 @@ class UpdateWorkflowController {
         $this->hooks->doWorkflowStepBeforeSave($step);
         $this->hooks->doWorkflowStepByKeyBeforeSave($step);
       }
-      $changed = true;
     }
 
-    if ($changed) {
-      $this->hooks->doWorkflowBeforeSave($workflow);
-      $this->storage->updateWorkflow($workflow);
-    }
+    $this->hooks->doWorkflowBeforeSave($workflow);
+    $this->storage->updateWorkflow($workflow);
 
     $workflow = $this->storage->getWorkflow($id);
     if (!$workflow) {
@@ -78,7 +71,8 @@ class UpdateWorkflowController {
 
   private function checkWorkflowStatus(string $status): void {
     if (!in_array($status, [Workflow::STATUS_ACTIVE, Workflow::STATUS_INACTIVE, Workflow::STATUS_DRAFT], true)) {
-      throw UnexpectedValueException::create()->withMessage(__(sprintf('Invalid status: %s', $status), 'mailpoet'));
+      // translators: %s is the status.
+      throw UnexpectedValueException::create()->withMessage(sprintf(__('Invalid status: %s', 'mailpoet'), $status));
     }
   }
 

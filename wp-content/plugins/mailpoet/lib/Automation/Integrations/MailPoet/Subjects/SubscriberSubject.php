@@ -78,7 +78,8 @@ class SubscriberSubject implements Subject {
     $id = $args['subscriber_id'];
     $this->subscriber = $this->subscribersRepository->findOneById($id);
     if (!$this->subscriber) {
-      throw NotFoundException::create()->withMessage(__(sprintf("Subscriber with ID '%s' not found.", $id), 'mailpoet'));
+      // translators: %d is the ID.
+      throw NotFoundException::create()->withMessage(sprintf(__("Subscriber with ID '%d' not found.", 'mailpoet'), $id));
     }
   }
 
