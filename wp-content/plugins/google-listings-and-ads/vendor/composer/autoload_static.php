@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259
+class ComposerStaticInit1c30b616bfb20186a9a0244f33f90ee6
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -579,6 +579,7 @@ class ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateAllProducts' => __DIR__ . '/../..' . '/src/Jobs/UpdateAllProducts.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateCoupon' => __DIR__ . '/../..' . '/src/Jobs/UpdateCoupon.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateProducts' => __DIR__ . '/../..' . '/src/Jobs/UpdateProducts.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\UpdateShippingSettings' => __DIR__ . '/../..' . '/src/Jobs/UpdateShippingSettings.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\Update\\CleanupProductTargetCountriesJob' => __DIR__ . '/../..' . '/src/Jobs/Update/CleanupProductTargetCountriesJob.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Jobs\\Update\\PluginUpdate' => __DIR__ . '/../..' . '/src/Jobs/Update/PluginUpdate.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Logging\\DebugLogger' => __DIR__ . '/../..' . '/src/Logging/DebugLogger.php',
@@ -665,7 +666,26 @@ class ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Proxies\\Tracks' => __DIR__ . '/../..' . '/src/Proxies/Tracks.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Proxies\\WC' => __DIR__ . '/../..' . '/src/Proxies/WC.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Proxies\\WP' => __DIR__ . '/../..' . '/src/Proxies/WP.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\CountryRatesCollection' => __DIR__ . '/../..' . '/src/Shipping/CountryRatesCollection.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\AbstractRateGroupAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/AbstractRateGroupAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\AbstractShippingSettingsAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/AbstractShippingSettingsAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\DBShippingSettingsAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/DBShippingSettingsAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\PostcodesRateGroupAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/PostcodesRateGroupAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\StatesRateGroupAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/StatesRateGroupAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\GoogleAdapter\\WCShippingSettingsAdapter' => __DIR__ . '/../..' . '/src/Shipping/GoogleAdapter/WCShippingSettingsAdapter.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\LocationRate' => __DIR__ . '/../..' . '/src/Shipping/LocationRate.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\LocationRatesCollection' => __DIR__ . '/../..' . '/src/Shipping/LocationRatesCollection.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\LocationRatesProcessor' => __DIR__ . '/../..' . '/src/Shipping/LocationRatesProcessor.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\PostcodeRange' => __DIR__ . '/../..' . '/src/Shipping/PostcodeRange.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ServiceRatesCollection' => __DIR__ . '/../..' . '/src/Shipping/ServiceRatesCollection.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ShippingLocation' => __DIR__ . '/../..' . '/src/Shipping/ShippingLocation.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ShippingRate' => __DIR__ . '/../..' . '/src/Shipping/ShippingRate.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ShippingRegion' => __DIR__ . '/../..' . '/src/Shipping/ShippingRegion.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ShippingSuggestionService' => __DIR__ . '/../..' . '/src/Shipping/ShippingSuggestionService.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ShippingZone' => __DIR__ . '/../..' . '/src/Shipping/ShippingZone.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\SyncerHooks' => __DIR__ . '/../..' . '/src/Shipping/SyncerHooks.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ZoneLocationsParser' => __DIR__ . '/../..' . '/src/Shipping/ZoneLocationsParser.php',
+        'Automattic\\WooCommerce\\GoogleListingsAndAds\\Shipping\\ZoneMethodsParser' => __DIR__ . '/../..' . '/src/Shipping/ZoneMethodsParser.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\TaskList\\CompleteSetup' => __DIR__ . '/../..' . '/src/TaskList/CompleteSetup.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\TaskList\\TaskListTrait' => __DIR__ . '/../..' . '/src/TaskList/TaskListTrait.php',
         'Automattic\\WooCommerce\\GoogleListingsAndAds\\Tracking\\EventTracking' => __DIR__ . '/../..' . '/src/Tracking/EventTracking.php',
@@ -4223,9 +4243,9 @@ class ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5fcc7dd144e26c00f38c71563aefc259::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1c30b616bfb20186a9a0244f33f90ee6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1c30b616bfb20186a9a0244f33f90ee6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1c30b616bfb20186a9a0244f33f90ee6::$classMap;
 
         }, null, ClassLoader::class);
     }

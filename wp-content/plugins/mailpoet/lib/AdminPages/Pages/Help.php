@@ -9,19 +9,20 @@ use MailPoet\AdminPages\PageRenderer;
 use MailPoet\Cron\ActionScheduler\Actions\DaemonRun;
 use MailPoet\Cron\ActionScheduler\Actions\DaemonTrigger;
 use MailPoet\Cron\CronHelper;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Helpscout\Beacon;
 use MailPoet\Mailer\MailerLog;
+use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
+use MailPoet\Newsletter\Url as NewsletterURL;
 use MailPoet\Router\Endpoints\CronDaemon;
 use MailPoet\Services\Bridge;
 use MailPoet\Tasks\Sending;
-use MailPoet\Tasks\State;
+use MailPoet\WP\DateTime;
 
 class Help {
   /** @var PageRenderer */
   private $pageRenderer;
-
-  /** @var State */
-  private $tasksState;
 
   /** @var CronHelper */
   private $cronHelper;
@@ -32,18 +33,31 @@ class Help {
   /** @var Bridge $bridge */
   private $bridge;
 
+  /*** @var ScheduledTasksRepository */
+  private $scheduledTasksRepository;
+
+  /*** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
+
+  /*** @var NewsletterURL */
+  private $newsletterUrl;
+
   public function __construct(
     PageRenderer $pageRenderer,
-    State $tasksState,
     CronHelper $cronHelper,
     Beacon $helpscoutBeacon,
-    Bridge $bridge
+    Bridge $bridge,
+    ScheduledTasksRepository $scheduledTasksRepository,
+    SendingQueuesRepository $sendingQueuesRepository,
+    NewsletterURL $newsletterUrl
   ) {
     $this->pageRenderer = $pageRenderer;
-    $this->tasksState = $tasksState;
     $this->cronHelper = $cronHelper;
     $this->helpscoutBeacon = $helpscoutBeacon;
     $this->bridge = $bridge;
+    $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->sendingQueuesRepository = $sendingQueuesRepository;
+    $this->newsletterUrl = $newsletterUrl;
   }
 
   public function render() {
@@ -72,8 +86,10 @@ class Help {
       'queueStatus' => $mailerLog,
     ];
     $systemStatusData['cronStatus']['accessible'] = $this->cronHelper->isDaemonAccessible();
-    $systemStatusData['queueStatus']['tasksStatusCounts'] = $this->tasksState->getCountsPerStatus();
-    $systemStatusData['queueStatus']['latestTasks'] = $this->tasksState->getLatestTasks(Sending::TASK_TYPE);
+    $systemStatusData['queueStatus']['tasksStatusCounts'] = $this->scheduledTasksRepository->getCountsPerStatus();
+    $systemStatusData['queueStatus']['latestTasks'] = array_map(function ($task) {
+      return $this->buildTaskData($task);
+    }, $this->scheduledTasksRepository->getLatestTasks(Sending::TASK_TYPE));
     $this->pageRenderer->displayPage(
       'help.html',
       [
@@ -113,5 +129,34 @@ class Help {
       return $dateObject->format('Y-m-d H:i:s');
     }
     return null;
+  }
+
+  public function buildTaskData(ScheduledTaskEntity $task): array {
+    $queue = $newsletter = null;
+    if ($task->getType() === Sending::TASK_TYPE) {
+      $queue = $this->sendingQueuesRepository->findOneBy(['task' => $task]);
+      $newsletter = $queue ? $queue->getNewsletter() : null;
+    }
+    return [
+      'id' => $task->getId(),
+      'type' => $task->getType(),
+      'priority' => $task->getPriority(),
+      'updated_at' => $task->getUpdatedAt()->format(DateTime::DEFAULT_DATE_TIME_FORMAT),
+      'scheduled_at' => $task->getScheduledAt() ?
+        $task->getScheduledAt()->format(DateTime::DEFAULT_DATE_TIME_FORMAT)
+        : null,
+      'status' => $task->getStatus(),
+      'newsletter' => $queue && $newsletter ? [
+        'newsletter_id' => $newsletter->getId(),
+        'queue_id' => $queue->getId(),
+        'subject' => $queue->getNewsletterRenderedSubject() ?: $newsletter->getSubject(),
+        'preview_url' => $this->newsletterUrl->getViewInBrowserUrl($newsletter, null, $queue),
+      ] : [
+        'newsletter_id' => null,
+        'queue_id' => null,
+        'subject' => null,
+        'preview_url' => null,
+      ],
+    ];
   }
 }

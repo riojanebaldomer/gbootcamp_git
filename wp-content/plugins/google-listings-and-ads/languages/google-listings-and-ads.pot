@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.0.4\n"
+"Project-Id-Version: Google Listings and Ads 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-16T15:55:51+00:00\n"
+"POT-Creation-Date: 2022-08-23T22:27:26+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -418,16 +418,6 @@ msgstr ""
 msgid "No result from query"
 msgstr ""
 
-#. translators: %1 is the shipping method, %2 is the shipping rate, %3 is the currency (e.g. USD)
-#: src/API/Google/Settings.php:292
-msgid "%1$s - %2$s %3$s"
-msgstr ""
-
-#. translators: %1 is a random 4-digit string, %2 is the rate, %3 is the currency, %4 is the country code
-#: src/API/Google/Settings.php:336
-msgid "[%1$s] Google Listings and Ads generated service - %2$s %3$s to %4$s"
-msgstr ""
-
 #: src/API/Google/SiteVerification.php:120
 msgid "Unable to retrieve site verification token."
 msgstr ""
@@ -459,7 +449,7 @@ msgid "Cannot find any budget recommendations."
 msgstr ""
 
 #: src/API/Site/Controllers/Ads/BudgetRecommendationController.php:154
-#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:52
+#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:42
 msgid "The currency to use for the shipping rate."
 msgstr ""
 
@@ -948,16 +938,16 @@ msgid "No rate available."
 msgstr ""
 
 #: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:152
-#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:239
+#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:238
 msgid "No rate found with the given ID."
 msgstr ""
 
 #. translators: %s is the country code in ISO 3166-1 alpha-2 format.
-#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:217
+#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:216
 msgid "Successfully added rate for country: \"%s\"."
 msgstr ""
 
-#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:250
+#: src/API/Site/Controllers/MerchantCenter/ShippingRateController.php:249
 msgid "Successfully deleted rate."
 msgstr ""
 
@@ -1007,19 +997,15 @@ msgstr ""
 msgid "The shipping rate unique identification number."
 msgstr ""
 
-#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:42
-msgid "The shipping method."
-msgstr ""
-
-#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:60
+#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:50
 msgid "The shipping rate."
 msgstr ""
 
-#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:68
+#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:58
 msgid "Array of options for the shipping method."
 msgstr ""
 
-#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:76
+#: src/API/Site/Controllers/ShippingRateSchemaTrait.php:66
 msgid "Minimum price eligible for free shipping."
 msgstr ""
 
@@ -1454,6 +1440,21 @@ msgstr ""
 
 #: src/Product/Attributes/SizeType.php:53
 msgid "Maternity"
+msgstr ""
+
+#. translators: %1 is the shipping rate, %2 is the currency (e.g. USD)
+#: src/Shipping/GoogleAdapter/DBShippingSettingsAdapter.php:122
+msgid "Flat rate - %1$s %2$s"
+msgstr ""
+
+#. translators: %1 is a random 4-digit string, %2 is the rate, %3 is the currency, %4 is the country code
+#: src/Shipping/GoogleAdapter/DBShippingSettingsAdapter.php:150
+msgid "[%1$s] Google Listings and Ads generated service - %2$s %3$s to %4$s"
+msgstr ""
+
+#. translators: %1 is a random 4-digit string, %2 is the country code
+#: src/Shipping/GoogleAdapter/WCShippingSettingsAdapter.php:149
+msgid "[%1$s] Google Listings and Ads generated service - %2$s"
 msgstr ""
 
 #: views/attributes/tab-panel.php:20
