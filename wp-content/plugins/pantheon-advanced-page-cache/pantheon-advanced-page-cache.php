@@ -146,14 +146,14 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
  *
  * @return void
  */
-public function flush_site()
+function flush_site()
 /**
  * Clear the cache for a post.
  *
  * @param  int $post_id A post ID to clean.
  * @return void
  */
-public function clean_post_cache( $post_id, $include_homepage = true )
+function clean_post_cache( $post_id, $include_homepage = true )
 /**
  * Clear the cache for a given term or terms and taxonomy.
  *
@@ -161,4 +161,4 @@ public function clean_post_cache( $post_id, $include_homepage = true )
  * @param string $taxonomy Can be empty and will assume tt_ids, else will use for context.
  * @return void
  */
-public function clean_term_cache( $term_ids, $taxonomy )
+function clean_term_cache( $term_ids, $taxonomy )
