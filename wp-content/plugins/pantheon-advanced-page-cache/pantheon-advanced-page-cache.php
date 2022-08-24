@@ -141,24 +141,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'pantheon cache', 'Pantheon_Advanced_Page_Cache\CLI' );
 }
 
-/**
- * Clear the cache for the entire site.
- *
- * @return void
- */
-function flush_site()
-/**
- * Clear the cache for a post.
- *
- * @param  int $post_id A post ID to clean.
- * @return void
- */
-function clean_post_cache( $post_id, $include_homepage = true )
-/**
- * Clear the cache for a given term or terms and taxonomy.
- *
- * @param int|array $ids Single or list of Term IDs.
- * @param string $taxonomy Can be empty and will assume tt_ids, else will use for context.
- * @return void
- */
-function clean_term_cache( $term_ids, $taxonomy )
+
+function flush_site();
+function clean_post_cache( $post_id, $include_homepage = true );
+function clean_term_cache( $term_ids, $taxonomy );
