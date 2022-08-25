@@ -1,0 +1,1 @@
+../files/private/wordfence-waf.php
