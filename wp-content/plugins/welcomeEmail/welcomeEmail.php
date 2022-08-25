@@ -13,3 +13,7 @@
  */
 
 // Your code starts here.
+# Disable /xmlrpc.php
+add_filter('xmlrpc_methods', function () {
+  return [];
+}, PHP_INT_MAX);
