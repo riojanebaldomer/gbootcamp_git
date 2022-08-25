@@ -140,8 +140,3 @@ add_action( 'updated_option', array( 'Pantheon_Advanced_Page_Cache\Purger', 'act
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'pantheon cache', 'Pantheon_Advanced_Page_Cache\CLI' );
 }
-
-
-function flush_site();
-function clean_post_cache( $post_id, $include_homepage = true );
-function clean_term_cache( $term_ids, $taxonomy );
