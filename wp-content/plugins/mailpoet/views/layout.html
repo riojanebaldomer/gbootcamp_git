@@ -56,6 +56,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_version = "<%= mailpoet_version() %>";
   var mailpoet_locale = "<%= mailpoet_locale() %>";
   var mailpoet_wp_week_starts_on = "<%= wp_start_of_week() %>";
+  var mailpoet_urls = <%= json_encode(urls) %>;
   var mailpoet_premium_version = <%= json_encode(mailpoet_premium_version()) %>;
   var mailpoet_3rd_party_libs_enabled = <%= is_loading_3rd_party_enabled() | json_encode %>;
   var mailpoet_analytics_enabled = <%= is_analytics_enabled() | json_encode %>;
@@ -71,6 +72,36 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_feature_announcement_has_news = <%= json_encode(feature_announcement_has_news) %>;
   var mailpoet_wp_segment_state = <%= json_encode(wp_segment_state) %>;
   var mailpoet_mta_method = '<%= mta_method %>';
+  var mailpoet_tracking_config = <%= json_encode(tracking_config) %>;
+  var mailpoet_is_new_user = <%= json_encode(is_new_user == true) %>;
+  var mailpoet_installed_days_ago = <%= installed_days_ago %>;
+  var mailpoet_deactivate_subscriber_after_inactive_days = <%= json_encode(deactivate_subscriber_after_inactive_days) %>;
+
+  // Premium status
+  var mailpoet_current_wp_user_email = '<%= current_wp_user_email|escape('js') %>';
+  var mailpoet_premium_link = <%= json_encode(link_premium) %>;
+  var mailpoet_premium_plugin_installed = <%= json_encode(premium_plugin_installed) %>;
+  var mailpoet_premium_active = <%= json_encode(premium_plugin_active) %>;
+  var mailpoet_premium_plugin_download_url = <%= json_encode(premium_plugin_download_url) %>;
+  var mailpoet_premium_plugin_activation_url = <%= json_encode(premium_plugin_activation_url) %>;
+  var mailpoet_has_valid_api_key = <%= json_encode(has_valid_api_key) %>;
+  var mailpoet_has_valid_premium_key = <%= json_encode(has_valid_premium_key) %>;
+  var mailpoet_has_premium_support = <%= json_encode(has_premium_support) %>;
+  var has_mss_key_specified = <%= json_encode(has_mss_key_specified) %>;
+  var mailpoet_mss_key_invalid = <%= json_encode(mss_key_invalid) %>;
+  var mailpoet_mss_key_pending_approval = '<%= mss_key_pending_approval %>';
+  var mailpoet_mss_active = <%= json_encode(mss_active) %>;
+  var mailpoet_plugin_partial_key = '<%= plugin_partial_key %>';
+  var mailpoet_subscribers_count = <%= subscriber_count %>;
+  var mailpoet_subscribers_counts_cache_created_at = <%= json_encode(subscribers_counts_cache_created_at) %>;
+  var mailpoet_subscribers_limit = <%= subscribers_limit ? subscribers_limit : 'false'  %>;
+  var mailpoet_subscribers_limit_reached = <%= json_encode(subscribers_limit_reached) %>;
+  var mailpoet_email_volume_limit = <%= json_encode(email_volume_limit) %>;
+  var mailpoet_email_volume_limit_reached = <%= json_encode(email_volume_limit_reached) %>;
+
+  <% if not(premium_plugin_active) %>
+    var mailpoet_free_premium_subscribers_limit = <%= free_premium_subscribers_limit %>;
+  <% endif %>
 </script>
 
 <!-- javascripts -->

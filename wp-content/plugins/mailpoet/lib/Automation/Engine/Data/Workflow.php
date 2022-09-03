@@ -12,6 +12,13 @@ class Workflow {
   public const STATUS_ACTIVE = 'active';
   public const STATUS_INACTIVE = 'inactive';
   public const STATUS_DRAFT = 'draft';
+  public const STATUS_TRASH = 'trash';
+  public const STATUS_ALL = [
+    self::STATUS_ACTIVE,
+    self::STATUS_INACTIVE,
+    self::STATUS_DRAFT,
+    self::STATUS_TRASH,
+  ];
 
   /** @var int */
   private $id;
@@ -22,6 +29,9 @@ class Workflow {
   /** @var string */
   private $name;
 
+  /** @var \WP_User */
+  private $author;
+
   /** @var string */
   private $status = self::STATUS_DRAFT;
 
@@ -31,6 +41,9 @@ class Workflow {
   /** @var DateTimeImmutable */
   private $updatedAt;
 
+  /** @var ?DateTimeImmutable */
+  private $activatedAt = null;
+
   /** @var array<string, Step> */
   private $steps;
 
@@ -38,11 +51,13 @@ class Workflow {
   public function __construct(
     string $name,
     array $steps,
+    \WP_User $author,
     int $id = null,
     int $versionId = null
   ) {
     $this->name = $name;
     $this->steps = [];
+    $this->author = $author;
     foreach ($steps as $step) {
       $this->steps[$step->getId()] = $step;
     }
@@ -81,6 +96,9 @@ class Workflow {
   }
 
   public function setStatus(string $status): void {
+    if ($status === self::STATUS_ACTIVE && $this->status !== self::STATUS_ACTIVE) {
+      $this->activatedAt = new DateTimeImmutable();
+    }
     $this->status = $status;
     $this->setUpdatedAt();
   }
@@ -89,8 +107,16 @@ class Workflow {
     return $this->createdAt;
   }
 
+  public function getAuthor(): \WP_User {
+    return $this->author;
+  }
+
   public function getUpdatedAt(): DateTimeImmutable {
     return $this->updatedAt;
+  }
+
+  public function getActivatedAt(): ?DateTimeImmutable {
+    return $this->activatedAt;
   }
 
   /** @return array<string, Step> */
@@ -135,8 +161,10 @@ class Workflow {
     return [
       'name' => $this->name,
       'status' => $this->status,
+      'author' => $this->author->ID,
       'created_at' => $this->createdAt->format(DateTimeImmutable::W3C),
       'updated_at' => $this->updatedAt->format(DateTimeImmutable::W3C),
+      'activated_at' => $this->activatedAt ? $this->activatedAt->format(DateTimeImmutable::W3C) : null,
       'steps' => Json::encode(
         array_map(function (Step $step) {
           return $step->toArray();
@@ -159,12 +187,17 @@ class Workflow {
 
   public static function fromArray(array $data): self {
     // TODO: validation
-    $workflow = new self($data['name'], self::parseSteps(Json::decode($data['steps'])));
+    $workflow = new self(
+      $data['name'],
+      self::parseSteps(Json::decode($data['steps'])),
+      new \WP_User((int)$data['author'])
+    );
     $workflow->id = (int)$data['id'];
     $workflow->versionId = (int)$data['version_id'];
     $workflow->status = $data['status'];
     $workflow->createdAt = new DateTimeImmutable($data['created_at']);
     $workflow->updatedAt = new DateTimeImmutable($data['updated_at']);
+    $workflow->activatedAt = $data['activated_at'] !== null ? new DateTimeImmutable($data['activated_at']) : null;
     return $workflow;
   }
 
