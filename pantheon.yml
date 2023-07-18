@@ -4,4 +4,3 @@ api_version: 1
 
 protected_web_paths:
   - /.user.ini
-  - /page.php
