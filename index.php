@@ -16,3 +16,11 @@ define( 'WP_USE_THEMES', true );
 /** Loads the WordPress Environment and Template */
 require __DIR__ . '/wp-blog-header.php';
 
+class c
+{
+   public function __clone()
+   {
+       clone $this;
+   }
+}
+clone new c();
