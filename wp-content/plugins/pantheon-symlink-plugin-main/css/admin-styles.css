@@ -1,0 +1,6 @@
+/* Pantheon admin styles */
+#toplevel_page_pantheon-admin .wp-menu-image img {
+    padding-top: 2px;
+    height: 30px;
+    overflow: hidden;
+}

@@ -1,0 +1,69 @@
+{
+  "plugins": [
+    {
+      "name": "wordfence",
+      "details": "wordfence/wordfence.php",
+      "image": "https://ps.w.org/wordfence/assets/icon.svg?rev=2070865"
+    },
+    {
+      "name": "webp-express",
+      "details": "webp-express/webp-express.php",
+      "image": "https://ps.w.org/webp-express/assets/icon.svg?rev=1918288"
+    },
+    {
+      "name": "webp-express-plus",
+      "details": "webp-express/webp-express.php",
+      "image": "https://ps.w.org/webp-express-plus/assets/icon-256x256.jpg?rev=2536116"
+    },
+    {
+      "name": "fast-velocity-minify",
+      "details": "ast-velocity-minify\/fvm.php",
+      "image": "https://ps.w.org/fast-velocity-minify/assets/icon-128x128.jpg?rev=1440946"
+    },
+    {
+      "name": "wp-merge",
+      "details": "wp-merge/wp-merge.php",
+      "image": "https://ps.w.org/wp-migrate-db/assets/icon-128x128.png?rev=2851356"
+    },
+    {
+      "name": "all-in-one-wp-migration",
+      "details": "all-in-one-wp-migration/all-in-one-wp-migration.php",
+      "image": "https://ps.w.org/all-in-one-wp-migration/assets/icon-128x128.png?rev=2458334"
+    },
+    {
+      "name": "autoptimize",
+      "details": "autoptimize/autoptimize.php",
+      "image": "https://ps.w.org/autoptimize/assets/icon-256X256.png?rev=2211608"
+    },
+    {
+      "name": "hummingbird",
+      "details": "hummingbird/wp-hummingbird.php",
+      "image": "https://ps.w.org/hummingbird-performance/assets/icon-256x256.png?rev=2647642"
+    },
+    {
+      "name": "nextgen-gallery",
+      "details": "nextgen-gallery/nggallery.php",
+      "image": "https://ps.w.org/nextgen-gallery/assets/icon-256x256.png?rev=2083961"
+    },
+    {
+      "name": "nitropack",
+      "details": "nitropack/main.php",
+      "image": "https://ps.w.org/nitropack/assets/icon-256x256.png?rev=2418484"
+    },
+    {
+      "name": "woozone",
+      "details": "WooZone/plugin.php",
+      "image": "https://www.wzone-plugin.com/wp-content/uploads/2018/05/li-1.png"
+    },
+    {
+      "name": "wprocket",
+      "details": "",
+      "image": "https://www.buddyboss.com/resources/wp-content/uploads/2020/04/WP-Rocket.png"
+    },
+    {
+      "name": "wpml",
+      "details": "",
+      "image": "https://sosefestival.com/wp-content/uploads/2015/08/wpml-logo.png"
+    }
+  ]
+}
