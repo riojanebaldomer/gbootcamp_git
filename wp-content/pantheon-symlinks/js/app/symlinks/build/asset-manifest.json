@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wp-content/plugins/pantheon-symlinks/js/app/symlinks/build/static/css/main.6ed5d998.css",
+    "main.js": "/wp-content/plugins/pantheon-symlinks/js/app/symlinks/build/static/js/main.bd004332.js",
+    "index.html": "/wp-content/plugins/pantheon-symlinks/js/app/symlinks/build/index.html",
+    "main.6ed5d998.css.map": "/wp-content/plugins/pantheon-symlinks/js/app/symlinks/build/static/css/main.6ed5d998.css.map",
+    "main.bd004332.js.map": "/wp-content/plugins/pantheon-symlinks/js/app/symlinks/build/static/js/main.bd004332.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ed5d998.css",
+    "static/js/main.bd004332.js"
+  ]
+}

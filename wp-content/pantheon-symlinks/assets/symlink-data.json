@@ -1,0 +1,47 @@
+{
+    "symlinks": [
+        {
+            "id": "5049",
+            "target": ".\/uploads\/cache",
+            "link": "\/wp-content\/cache-aaa",
+            "description": "custom plugin3"
+        },
+        {
+            "id": "1824",
+            "target": ".\/uploads\/cache-1",
+            "link": "\/wp-content\/cache-1",
+            "description": "custom 3",
+            "isNew": true
+        },
+        {
+            "id": "1614",
+            "target": ".\/uploads\/cache-2",
+            "link": "\/wp-content\/cache-2",
+            "description": "custom 2"
+        },
+        {
+            "id": 7656,
+            "target": ".\/uploads\/cache",
+            "link": "\/wp-content\/cache-3",
+            "description": ""
+        },
+        {
+            "id": 8219,
+            "target": ".\/uploads\/cache",
+            "link": "\/wp-content\/cache-4",
+            "description": ""
+        },
+        {
+            "id": "7276",
+            "target": ".\/uploads\/cache",
+            "link": "\/wp-content\/cache-5",
+            "description": ""
+        },
+        {
+            "id": "10381",
+            "target": ".\/uploads\/cache",
+            "link": "\/wp-content\/xlogs",
+            "description": ""
+        }
+    ]
+}
